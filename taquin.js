@@ -1,12 +1,13 @@
 // fonctions du programme
 var tab=[];
+var tabBut=[];
 $(document).ready(function(){
 
 var N=4;
 
 
 ///////////////////////////////////////////////////
-///  création et remplissage du tableau      /////
+///  création et remplissage du tableau qui sera modifié      /////
 //////////////////////////////////////////////////
 
 for(var i=0; i<N; i++){
@@ -17,11 +18,23 @@ for(var i=0; i<N; i++){
     tab.push(row);
 }
 
-function render(tab){
-  //  var element = $("#L1c3")
-   // element.text(tab[2][1]);
+///////////////////////////////////////////////////////////////////
+///  création et remplissage du tableau BUT = jeu résolu     /////
+//////////////////////////////////////////////////////////////////
+
 
     for(var i=0; i<N; i++){
+        var row=[];
+        for (var j=0; j<N; j++){
+            row.push(i*N+j)
+        }
+        tabBut.push(row);
+    }
+
+
+
+function render(tab){
+     for(var i=0; i<N; i++){
         for (var j=0; j<N; j++){
             var selector = "#L"+i+"c"+j;
             const val = tab[i][j];
@@ -117,20 +130,42 @@ function shuffleTiles() {
     shuffleTiles()
     render(tab);
 
+///////////////////////////////////////////////////
+///            résolution d'un jeu            ////
+// ///////////////////////////////////////////////
+
+
+//génération de parcours
+// tentative de remettre chaque case à sa place d'origine
+// comparer deux tableaux : actuel et  but à atteindre
+//
+
+function solveGame(){
+
+    //Je mélange = appel shuffleTiles
+
+    //Si tab = tabBut = "c'est gagné'
+
+    // si tab != tabBut je continue à mélanger, à tester un parcours
+
+    }
+
+function isSolved(){
+    if(tab = tabBut){
+        alert(C'est gagné!')
+    }
+}
 
 
 
-// boucle qui prend un coup possible, le joue, et qui recommence, tenter plusieurs nbre de boucles, 3, 20, 30
 
 
-//melanger_taquin()
-//partir de la solution (le taquin résolu) et mélanger. Faire un test pour vérifier que le taquin est résoluble.
-// si le nombre de cases de la ligne est pair le nombre de permutations nécessaire doit être pair et inversement.
+
+
 
 //est_resolu()
 
-//position_case_vide(numero_colonne, numero_ligne)
-// les numéros débutent à zéro
+
 
 //numero_piece()
 //renvoie la valeur faciale de la pièce à l'intersection de la colonne x et de la ligne y
