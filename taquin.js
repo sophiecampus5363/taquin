@@ -109,8 +109,8 @@ function coupsPossible(){
 function shuffleTiles() {
     for (var k = 0; k < 12; k++) {
         var tableau_regles = coupsPossible()
-        swapValue(tableau_regles[Math.floor(Math.random()*coupsPossible().length)])
-        // si param de SwaValue sont dans les clous des règles du tableau = ok
+        swapValue(tableau_regles[Math.floor(Math.random()*tableau_regles.length)])
+
     }
 }
 
