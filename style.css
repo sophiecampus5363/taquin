@@ -1,0 +1,18 @@
+.item {
+
+    border: 3px solid black;
+    width: 100px;
+    height: 100px;
+    font-weight: bold;
+    background-color: deeppink;
+    text-align: center;
+}
+
+.empty_tile {
+    border: 3px solid black;
+    width: 100px;
+    height: 100px;
+    font-weight: bold;
+    background-color: white;
+    text-align: center;
+}
