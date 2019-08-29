@@ -46,7 +46,7 @@ render(tab);
 
 var coord_empty_tile = [3,3];
 
-function swapValue(i, j) {
+function swapValue([i, j]) {
     var row_empty_tile = coord_empty_tile[0]
     var col_empty_tile = coord_empty_tile[1]
 
@@ -59,9 +59,8 @@ function swapValue(i, j) {
 
 }
 
-swapValue(2,3);
 
-render(tab);
+
 
 
 ///////////////////////////////////////
@@ -88,12 +87,12 @@ function coupsPossible(){
 
     if(col_empty_tile < 3)
     {
-        coups.push([col_empty_tile+1, row_empty_tile])
+        coups.push([ row_empty_tile, col_empty_tile+1,])
     }
 
     if(col_empty_tile > 0)
     {
-        coups.push([col_empty_tile-1, row_empty_tile])
+        coups.push([ row_empty_tile, col_empty_tile-1])
     }
 
 
@@ -101,14 +100,22 @@ function coupsPossible(){
 
 }
 
-coupsPossible()
+
 
 ///////////////////////////////////////////////////
 ///             déplacements pour mélanger     ////
 // ///////////////////////////////////////////////
 
+function shuffleTiles() {
+    for (var k = 0; k < 12; k++) {
+        var tableau_regles = coupsPossible()
+        swapValue(tableau_regles[Math.floor(Math.random()*coupsPossible().length)])
+        // si param de SwaValue sont dans les clous des règles du tableau = ok
+    }
+}
 
-
+    shuffleTiles()
+    render(tab);
 
 
 
