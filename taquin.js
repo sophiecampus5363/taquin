@@ -73,7 +73,7 @@ function swapValue([i, j]) {
 }
 
 
-
+//stocker état de mon tableau dans autre variable pour pouvoir annuler coup précédent, annuler swap, retrouver coord d'avant swap
 
 
 ///////////////////////////////////////
@@ -120,7 +120,7 @@ function coupsPossible(){
 // ///////////////////////////////////////////////
 
 function shuffleTiles() {
-    for (var k = 0; k < 12; k++) {
+    for (var k = 0; k < 3; k++) {
         var tableau_regles = coupsPossible()
         swapValue(tableau_regles[Math.floor(Math.random()*tableau_regles.length)])
 
@@ -140,21 +140,28 @@ function shuffleTiles() {
 // comparer deux tableaux : actuel et  but à atteindre
 //
 
-function solveGame(){
+function isSolved(tab[], tabBut[]){
 
-    //Je mélange = appel shuffleTiles
-
-    //Si tab = tabBut = "c'est gagné'
-
-    // si tab != tabBut je continue à mélanger, à tester un parcours
+    if(tab=tabBut){
+      isSolved() == true;
 
     }
 
-function isSolved(){
-    if(tab = tabBut){
-        alert(C'est gagné!')
-    }
-}
+// boucle sur les lignes et les colonnes
+//comparer élément [i][j] du tableau réel et du tableau but
+// si élements différents -> isSolved = false
+
+
+//
+// function Solve(){ // trad algo en code
+//     var maxDepth
+//     var depth
+//     if(depth > maxDepth){
+//         alert(taquin non résolu)
+//      if
+//     }
+// }
+
 
 
 
