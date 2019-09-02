@@ -1,6 +1,6 @@
 // fonctions du programme
-var tab = [];
-var tabBut = [];
+const tab = [];
+const tabBut = [];
 $(document).ready(function () {
 
     var N = 4;
@@ -135,14 +135,15 @@ $(document).ready(function () {
 
 
     function isSolved(tab, tabBut) {     // équivalent de "est_gagnant", compare les deux tableaux pour voir si l'état actuel correspond au tableau résolu
-
+        console.log(tab);
         for (var a = 0; a < tab.length; a++) {
-
-            if (tab[a] != tabBut[a]) {
-                return false
+            for (var b = 0; b < tab[a].length; b++) {
+                if (tab[a][b] != tabBut[a][b]) {
+                    return false
+                }
             }
-            return true
         }
+        return true
     }
 
 
@@ -177,3 +178,6 @@ $(document).ready(function () {
     });
 
 });
+
+// stocker les modifications de mon tableau dans des variables au nom clair
+// pour éviter les conflits de scope et appeler la bonne version de l'instantanné de mon tableau (son état)
