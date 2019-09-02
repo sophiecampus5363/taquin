@@ -1,76 +1,75 @@
 // fonctions du programme
-var tab=[];
-var tabBut=[];
-$(document).ready(function(){
+var tab = [];
+var tabBut = [];
+$(document).ready(function () {
 
-var N=4;
+    var N = 4;
 
 
 ///////////////////////////////////////////////////
 ///  création et remplissage du tableau qui sera modifié      /////
 //////////////////////////////////////////////////
 
-for(var i=0; i<N; i++){
-    var row=[];
-    for (var j=0; j<N; j++){
-        row.push(i*N+j)
+    for (var i = 0; i < N; i++) {
+        var row = [];
+        for (var j = 0; j < N; j++) {
+            row.push(i * N + j)
+        }
+        tab.push(row);
     }
-    tab.push(row);
-}
 
 ///////////////////////////////////////////////////////////////////
 ///  création et remplissage du tableau BUT = jeu résolu     /////
 //////////////////////////////////////////////////////////////////
 
 
-    for(var i=0; i<N; i++){
-        var row=[];
-        for (var j=0; j<N; j++){
-            row.push(i*N+j)
+    for (var i = 0; i < N; i++) {
+        var row = [];
+        for (var j = 0; j < N; j++) {
+            row.push(i * N + j)
         }
         tabBut.push(row);
     }
 
 
-
-function render(tab){
-     for(var i=0; i<N; i++){
-        for (var j=0; j<N; j++){
-            var selector = "#L"+i+"c"+j;
-            const val = tab[i][j];
-            $(selector).text(val);
-            if(val===15) {
-                $(selector).addClass("empty_tile")
-            } else {
-                $(selector).removeClass("empty_tile")
+    function render(tab) {
+        for (var i = 0; i < N; i++) {
+            for (var j = 0; j < N; j++) {
+                var selector = "#L" + i + "c" + j;
+                const val = tab[i][j];
+                $(selector).text(val);
+                if (val === 15) {
+                    $(selector).addClass("empty_tile")
+                } else {
+                    $(selector).removeClass("empty_tile")
+                }
             }
         }
+
+
     }
 
-
-}
-
-render(tab);
+    render(tab);
 
 ///////////////////////////////////////////////////
 ///  inverser les valeurs des cases permutées /////
 //////////////////////////////////////////////////
 
 
-var coord_empty_tile = [3,3];
+    var coord_empty_tile = [3, 3];
 
-function swapValue([i, j]) {
-    var row_empty_tile = coord_empty_tile[0]
-    var col_empty_tile = coord_empty_tile[1]
+    function swapValue([i, j]) {
+        var row_empty_tile = coord_empty_tile[0]
+        var col_empty_tile = coord_empty_tile[1]
 
-    var temp = tab[i][j]
-    tab[i][j] = tab[row_empty_tile][col_empty_tile]
-    tab[row_empty_tile][col_empty_tile] = temp
+        var temp = tab[i][j]
+        tab[i][j] = tab[row_empty_tile][col_empty_tile]
+        tab[row_empty_tile][col_empty_tile] = temp
 
-    coord_empty_tile = [i,j] ;
+        coord_empty_tile = [i, j];
 
 
-}
+    }
 
 
 //stocker état de mon tableau dans autre variable pour pouvoir annuler coup précédent, annuler swap, retrouver coord d'avant swap
@@ -81,51 +80,46 @@ function swapValue([i, j]) {
 //////////////////////////////////////
 
 
-function coupsPossible(){
+    function coupsPossibles() {
 
-    var row_empty_tile = coord_empty_tile[0]
-    var col_empty_tile = coord_empty_tile[1]
+        var row_empty_tile = coord_empty_tile[0]
+        var col_empty_tile = coord_empty_tile[1]
 
-    var coups = [];
+        var coups = [];
 
-    if(row_empty_tile < 3)
-    {
-        coups.push([row_empty_tile+1, col_empty_tile])
+        if (row_empty_tile < 3) {
+            coups.push([row_empty_tile + 1, col_empty_tile])
+        }
+
+        if (row_empty_tile > 0) {
+            coups.push([row_empty_tile - 1, col_empty_tile])
+        }
+
+        if (col_empty_tile < 3) {
+            coups.push([row_empty_tile, col_empty_tile + 1,])
+        }
+
+        if (col_empty_tile > 0) {
+            coups.push([row_empty_tile, col_empty_tile - 1])
+        }
+
+
+        return coups;
+
     }
-
-    if(row_empty_tile > 0)
-    {
-        coups.push([row_empty_tile -1, col_empty_tile])
-    }
-
-    if(col_empty_tile < 3)
-    {
-        coups.push([ row_empty_tile, col_empty_tile+1,])
-    }
-
-    if(col_empty_tile > 0)
-    {
-        coups.push([ row_empty_tile, col_empty_tile-1])
-    }
-
-
-    return coups;
-
-}
-
 
 
 ///////////////////////////////////////////////////
 ///             déplacements pour mélanger     ////
 // ///////////////////////////////////////////////
 
-function shuffleTiles() {
-    for (var k = 0; k < 3; k++) {
-        var tableau_regles = coupsPossible()
-        swapValue(tableau_regles[Math.floor(Math.random()*tableau_regles.length)])
+    function shuffleTiles() {
+        for (var k = 0; k < 3; k++) {
+            var tableau_regles = coupsPossibles()
+            swapValue(tableau_regles[Math.floor(Math.random() * tableau_regles.length)])
 
+        }
     }
-}
 
     shuffleTiles()
     render(tab);
@@ -138,50 +132,48 @@ function shuffleTiles() {
 //génération de parcours
 // tentative de remettre chaque case à sa place d'origine
 // comparer deux tableaux : actuel et  but à atteindre
-//
 
-function isSolved(tab[], tabBut[]){
 
-    if(tab=tabBut){
-      isSolved() == true;
+    function isSolved(tab, tabBut) {     // équivalent de "est_gagnant", compare les deux tableaux pour voir si l'état actuel correspond au tableau résolu
 
+        for (var a = 0; a < tab.length; a++) {
+
+            if (tab[a] != tabBut[a]) {
+                return false
+            }
+            return true
+        }
     }
+
 
 // boucle sur les lignes et les colonnes
 //comparer élément [i][j] du tableau réel et du tableau but
 // si élements différents -> isSolved = false
 
 
-//
-// function Solve(){ // trad algo en code
-//     var maxDepth
-//     var depth
-//     if(depth > maxDepth){
-//         alert(taquin non résolu)
-//      if
-//     }
-// }
 
+    function Solve(tab, depth) { // trad algo en code
 
+        if (depth > 4) {
+            return false
+        }
+        if (isSolved(tab, tabBut)) {
+            return true
+        }
 
+        var coupsPossActu = coupsPossibles();
+        for (var x = 0; x < coupsPossActu.length; x++) {
+            var nouv_tab = swapValue(coord_empty_tile); // On applique le mouvement x sur tab
+            if (Solve(nouv_tab, depth + 1)) {
+                return true;
+            }
+        }
+        return false
 
+    }
 
-
-
-
-
-//est_resolu()
-
-
-
-//numero_piece()
-//renvoie la valeur faciale de la pièce à l'intersection de la colonne x et de la ligne y
-//Si cette case est vide, le numéro renvoyé est n2, si n est la taille du taquin.
-
-//echanger (c1, c2)
-//échange les pièces situées dans les cases de coordonnées c1 et c2
-
-//déplacable()
-//vérifie si un élément peut être déplacé
+    $(document).on('click', '#resoudre', function() {
+        Solve(tab, 0);
+    });
 
 });
